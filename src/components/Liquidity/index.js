@@ -34,27 +34,26 @@ const Liqudity = (props) => {
         return [marketCapValue,volume, percentChange, item.name];
       });
 
-    data.sort((a,b) => a[0]-b[0]);
-    let low = data.length *0.25;
-    data = data.slice(low, data.length-low);
-    data.sort((a,b) => a[1]-b[1]);
-    low = data.length *0.25;
-    data = data.slice(low, data.length-low);
-    console.log(data);
-    minMarketCapValue = data[0][0];
-    maxMarketCapValue = data[data.length-1][0];
-    minVolume = data[0][1];
-    maxVolume = data[data.length-1][1];
+    // data.sort((a,b) => a[0]-b[0]);
+    // let low = data.length *0.25;
+    // data = data.slice(low, data.length-low);
+    // data.sort((a,b) => a[1]-b[1]);
+    // low = data.length *0.25;
+    // data = data.slice(low, data.length-low);
+    // minMarketCapValue = data[0][0];
+    // maxMarketCapValue = data[data.length-1][0];
+    // minVolume = data[0][1];
+    // maxVolume = data[data.length-1][1];
 
   var x = d3.scaleLinear()
-    .domain([minMarketCapValue, maxMarketCapValue])
+    .domain([0, maxMarketCapValue/1000])
     .range([ 0, width ]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
 
   var y = d3.scaleLinear()
-    .domain([minVolume, maxVolume])
+    .domain([0, maxVolume/500])
     .range([ height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
@@ -96,7 +95,7 @@ const Liqudity = (props) => {
     .append("circle")
       .attr("cx", function (d) { return x(d[0]); } )
       .attr("cy", function (d) { return y(d[1]); } )
-      .attr("r", function(d) { return 10 * Math.abs((Math.abs(d[2]) - minPercentChange)/maxPercentChange-minPercentChange)})
+      .attr("r", 3)
       .style("fill", "#69b3a2")
       .style("cursor", "pointer")
       .on("mouseover", mouseover )
