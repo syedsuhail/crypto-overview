@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { Anchor, Box, Menu } from 'grommet';
+import { Text, Box, Select } from 'grommet';
+import '../../App.css'
 
 const Header = (props) => {
   return (
@@ -11,29 +12,32 @@ const Header = (props) => {
       background='brand'
       pad={{ left: 'medium', right: 'small', vertical: 'small' }}
       elevation='medium'
-      style={{ zIndex: '1' }}>
+      style={{ zIndex: '1' }}
+      responsive={true}>
       <div>
       Show
-      <Menu
-        label={props.limit}
-        items={[
-          { label: '10', onClick: () => {props.updateLimit(10)} },
-          { label: '50', onClick: () => {props.updateLimit(50)} },
-          { label: 'All', onClick: () => {props.updateLimit('All')}}
-        ]}
+      <Select
+        options={['10', '50', 'All']}
+        value={props.limit}
+        onChange={({ option }) => props.updateLimit(option)}
+        margin={{"right": 0}}
+        alignSelf="center"
+        className="header-select"
       />
       Coins
       </div>
       <div>
-        <Anchor a11yTitle="Link to market overview"
+        <Link to="/" className="link">
+          <Text a11yTitle="Link to market overview"
+            margin="medium"
+            color="accent-3"
+            >
+              Market Overview
+          </Text>
+        </Link>
+        <Link to="/liquidity" className="link"><Text a11yTitle="Link to liquidity analysis"
         margin="medium"
-        >
-        <Link to="/">Market Overview</Link>
-        </Anchor>
-        <Anchor a11yTitle="Link to liquidity analysis"
-        margin="medium">
-        <Link to="/liquidity">Liquidity Analysis</Link>
-        </Anchor>
+        color="accent-3">Liquidity Analysis</Text></Link>
       </div>
     </Box>
   )
